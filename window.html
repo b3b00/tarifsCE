@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html ng-app="prices" id="ng-app" >
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	
+    <title>Tarifs  CE CGI Nord</title>
+
+    
+	<!--<script src="http:/localhost:1337/lib/angular/angular.min.js"></script>
+	<script src="http:/localhost:1337/lib/angular/angular-resource.min.js"></script>-->
+	  <script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.5.0.js"></script>
+	<link href="style/bootstrap-combined.min.css" rel="stylesheet">
+	
+	<script src="js/controller.js"></script>
+	
+	<style>
+		table tr.odd td { background : #84203a;
+			color:white;
+/*		#e11836;*/
+		border: 1.5px solid white;}
+		table tr.even td { background : lightgrey; border: 1.5px solid white;} 
+		table thead tr td {text-align:center; font-size:medium; background:#999; color:white;border: 1.5px solid white;}
+		
+		table tr.cmdrowodd  td {
+			text-align:center;			
+			border-right : 1.5px solid #867970;
+			background-color : #D4CCC5;
+			/*border-left : 1.5px solid darkgrey;*/
+			/*border-bottom:1.5px dashed darkgrey;*/
+			/*border-top:1.5px dashed darkgrey;*/
+		}
+		
+		table tr.cmdroweven  td {
+			text-align:center;			
+			border-right : 1.5px solid #D4CCC5;
+			background-color : #867970;
+			/*border-left : 1.5px solid darkgrey;*/
+			/*border-bottom:1.5px dashed darkgrey;*/
+			/*border-top:1.5px dashed darkgrey;*/
+		}
+		
+		table tr.cmdhead td {
+			border-right : 1.5px solid white;
+			border-left : 1.5px solid white;
+			/*border-bottom:1.5px dashed white;*/
+			/*border-top:1.5px dashed white;*/
+			background-color : #3D352A;
+			color:white;			
+			text-align:center;
+		}
+		
+		
+	
+        body { font-size: 75%; }
+        label, input { display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+		.itemName {
+			text-align = right;
+			font-weight : bold;
+			font-size : medium;
+			display:block;
+		}
+		.itemInfo {
+			text-align = left;
+			
+		}
+
+		/* ---------------------- scroll bars */
+
+		::-webkit-scrollbar {  
+    width:8px;
+    height:8px;
+    -webkit-border-radius: 4px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+    background-color:transparent;
+}
+
+::-webkit-scrollbar-thumb {  
+    background-color: rgba(053, 057, 071, 0.7);
+    width: 6px;
+    height: 6px;
+    -webkit-border-radius:4px;
+}
+
+​.header
+{
+    height:50px;
+}
+.content
+{
+    position:absolute;
+    top: 50px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    overflow-y:scroll;        
+}​
+		
+		
+    </style>
+	
+	
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	
+	
+	
+	
+  </head>
+
+  <body ng-controller="PriceController">
+  <span style="display:none">{{ total = getTotal() }}</span>
+  <div class="header">
+  <p align="right"  style="-webkit-app-region: drag; background:#0000cc;padding-right:20px"> 
+  	
+  	<span>
+  	<a style="-webkit-app-region: no-drag; background:#0000cc;color:red" href="#" onClick="window.close();return false;">close</a>
+  	</span>
+  </p>
+</div>
+<div class="content">
+  <div style="width:100%;overflow:auto	">
+  <tabset>
+    <tab heading="{{categolabel}}" ng-repeat="(categolabel,items) in prices" active="activeTab[$index]">		
+		<table width='100%'>
+			<thead>
+			<tr><td>Item</td><td>Prix</td><td>Quantit&eacute;</td></tr>
+			</thead>
+			<tbody>
+				<input ng-model="query" style='display:inline'>
+				<button  ng-click="query=''" 
+						style="background:white; cursor:pointer; border:solid 0px white;" 
+						type="button">
+							<img  onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" src="images/false.gif">
+			</tbody>
+			<tbody>				
+				<tr ng-repeat="(id,p) in items | filter:query" ng-class-odd="'odd'" ng-class-even="'even'" >						
+					<td><p class='itemName'>{{p.label}}</p><p align='right' class='itemInfo'>{{p.info}}</p></td>
+					<!--<td >{{p.info}}</td>-->
+					<td >{{p.price}} €</td>
+					<td ><input type="text" ng-change="checkInteger(p)" style="width:30px" ng-model="p.quantity" ></input></td>
+				</tr>			
+			<tbody>
+		</table>
+	</tab>	
+	<tab heading="Ma Commande : {{getTotal()}} €">		
+		<div  ng-show="total > 0 "	>
+			<button  ng-click="clearCommand()"  
+							style="cursor:pointer; border:solid 1px darkgrey;" 
+							type="button">Tout supprimer</button>
+							<br/>
+							<br/>
+			<table width='50%'>
+				<tbody>
+					<tr ng-class="'cmdhead'">	
+						<td >Nom</td>
+						<td >Info complémentaire</td>
+						<td >P.U.</td>
+						<td >Quantité</td>
+						<td >Total</td>
+					</tr>
+				</tbody>
+				<span style='display:none'>{{idx = 0}}</span>
+				<tbody ng-repeat="(categolabel,items) in prices ">						
+					
+					<tr  ng-class-odd="'cmdrowodd'" ng-class-even="'cmdroweven'" ng-repeat="(id,p) in items | quantityFilter" > 						
+						<td><p class='itemName'>{{p.label}}</p><p align='right' class='itemInfo'>{{p.info}}</p></td>
+						<td>{{p.price}} €</td>
+						<td><input type="t" size="4" style="width:30px;text-align:center;" ng-change="checkInteger(p)"  ng-model="p.quantity"> </td>
+						<td>{{p.quantity * p.price}} € </td>										
+						<td>
+							<button  ng-click="p.quantity=''" style="background:transparent; cursor:pointer; border:solid 0px ;" 
+							type="button">
+								<img  onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" src="images/trash.png">
+						</td>
+					</tr>			
+				<tbody>
+				<tbody >
+					<tr><td colspan='5'>&nbsp;</td></tr>
+					<tr ><td colspan="5" style="text-align:right;font-weight:bold;font-size:16px" >Total : {{total | number}} €</td><td></td><tr>
+				</tbody>
+			</table>
+		</div>	
+	</tab>
+  </tabset>
+  <br/>
+  
+<p align="left" style="color:#333333;font-decoration:italic">
+  	Running node-webkit v. <script>document.write(process.versions['node-webkit']);</script>
+</p>  	
+</div>
+  </body> 
+
+</html>

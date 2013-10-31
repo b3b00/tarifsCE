@@ -1,0 +1,12 @@
+{
+	"name": "Tarifs CE",
+	"main": "window.html",
+	"window": {
+		"icon": "images/tarifs-128.png",
+		"toolbar": false,
+	    "frame": false,
+	    "width": 800,
+	    "height": 600,
+	    "position": "mouse"
+	}
+}
