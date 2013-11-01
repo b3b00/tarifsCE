@@ -16,23 +16,69 @@
 	   
 
 
+		tsToDate = function(ts) {
+			 var a = new Date(ts*1000); 
+     var year = a.getFullYear();
+     var month = "00"+(a.getMonth()+1);     	 
+	 
+	 month = month.substring(month.length-2,month.length);    
+     var date = "00"+a.getDate();
+     date = date.substring(date.length-2,date.length);     
+     var hour = a.getHours();
+     var min = a.getMinutes();
+     var sec = a.getSeconds();
+     var time = date+'/'+month+'/'+year+' '+hour+':'+min+':'+sec ;
+     return time;
+		}
+
+
+		initData = function(data) {
+			$scope.prices = data.prices;    
+			$scope.lastUpdate = tsToDate(data.lastUpdate);
+			$scope.activeTab = new Array();
+			$scope.activeTab[0] = true;
+			for (i = 1; i < data.length; i++) {
+				$scope.activeTab[i] = false;
+			}
+		}	
+
 		getAll = function () {
 
+
+
+
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
-				console.log(data);
-				$scope.lastUpdate = data.lastUpdate;
+				//console.log(data);
+				cache = localStorage.priceCache;
+				console.log("net OK");
+				
+				localStorage.priceCache = data;				
+				console.log(localStorage.priceCache.lastUpdate);
+				//console.log(data);
+				initData(data);
+				//localStorage.love = "luyao";
+
+
+console.log("from store :: "+localStorage.love);
+/*
 				$scope.prices = data.prices;    
-				//if (data.lastUpdate > storedLastUpdate) {
-					// update cache
-				//}
+				$scope.lastUpdate = tsToDate(data.lastUpdate);
 				$scope.activeTab = new Array();
 				$scope.activeTab[0] = true;
 				for (i = 1; i < data.length; i++) {
 					$scope.activeTab[i] = false;
 				}
+				*/
 			}).error(function(data, status, headers, config) {
-    	// return from store
-  });
+				console.log("from store :: "+localStorage.love);
+				console.log('error on http GET '+status);
+				cache = localStorage.priceCache;
+				initData(cache);
+				console.log("cache is :: ");
+				console.log(cache.lastUpdate);
+			} );
+
+		}
 
 		$scope.getAll = getAll;
 

@@ -12,6 +12,12 @@
     <script src="js/ui-bootstrap-tpls-0.5.0.js"></script>
 	<link href="style/bootstrap-combined.min.css" rel="stylesheet">
 	
+<script>
+var _ref;
+
+global.localStorage = (_ref = global.localStorage) != null ? _ref : window.localStorage;
+</script>
+
 	<script src="js/controller.js"></script>
 	
 	<style>
@@ -95,16 +101,19 @@
 
 ​.header
 {
-    height:50px;
+    background:#0000cc;
 }
 .content
 {
     position:absolute;
-    top: 50px;
+    top: 48px;
     left:0px;
     right:0px;
     bottom:0px;
     overflow-y:scroll;        
+    border-right: 3px solid #0000cc;
+    border-left: 3px solid #0000cc;
+    border-bottom: 3px solid #0000cc;
 }​
 		
 		
@@ -120,17 +129,19 @@
   </head>
 
   <body ng-controller="PriceController">
-  <span style="display:none">{{ total = getTotal() }}</span>
+  
   <div class="header">
   <p align="right"  style="-webkit-app-region: drag; background:#0000cc;padding-right:20px"> 
   	
-  	<span>
-  	<a style="-webkit-app-region: no-drag; background:#0000cc;color:red" href="#" onClick="window.close();return false;">close</a>
-  	</span>
+  	
+  	<a style="-webkit-app-region: no-drag; background:#0000cc;color:red" href="#" onClick="window.close();return false;"><img src="images/close.png"/></a>
+  	
   </p>
 </div>
 <div class="content">
-<b>LAST UIPDATE :: {{lastUpdate}}</b><br>
+<br>
+<b>Derni&egrave;re mise &agrave; jour:: {{lastUpdate}}</b><br>
+<br>
   <div style="width:100%;overflow:auto	">
   <tabset>
     <tab heading="{{categolabel}}" ng-repeat="(categolabel,items) in prices" active="activeTab[$index]">		
