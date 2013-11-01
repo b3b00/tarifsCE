@@ -20,15 +20,19 @@
 
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
 				console.log(data);
-				$scope.prices = data;    
+				$scope.lastUpdate = data.lastUpdate;
+				$scope.prices = data.prices;    
+				//if (data.lastUpdate > storedLastUpdate) {
+					// update cache
+				//}
 				$scope.activeTab = new Array();
 				$scope.activeTab[0] = true;
 				for (i = 1; i < data.length; i++) {
 					$scope.activeTab[i] = false;
 				}
-			});
-
-		}
+			}).error(function(data, status, headers, config) {
+    	// return from store
+  });
 
 		$scope.getAll = getAll;
 
