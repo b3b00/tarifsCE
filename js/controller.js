@@ -9,6 +9,70 @@
 
 
 
+
+var Utf8 = {
+ 
+	// public method for url encoding
+	encode : function (string) {
+		string = string.replace(/\r\n/g,"\n");
+		var utftext = "";
+ 
+		for (var n = 0; n < string.length; n++) {
+ 
+			var c = string.charCodeAt(n);
+ 
+			if (c < 128) {
+				utftext += String.fromCharCode(c);
+			}
+			else if((c > 127) && (c < 2048)) {
+				utftext += String.fromCharCode((c >> 6) | 192);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+			else {
+				utftext += String.fromCharCode((c >> 12) | 224);
+				utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+ 
+		}
+ 
+		return utftext;
+	},
+ 
+	// public method for url decoding
+	decode : function (utftext) {
+		var string = "";
+		var i = 0;
+		var c = c1 = c2 = 0;
+ 
+		while ( i < utftext.length ) {
+ 
+			c = utftext.charCodeAt(i);
+ 
+			if (c < 128) {
+				string += String.fromCharCode(c);
+				i++;
+			}
+			else if((c > 191) && (c < 224)) {
+				c2 = utftext.charCodeAt(i+1);
+				string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+				i += 2;
+			}
+			else {
+				c2 = utftext.charCodeAt(i+1);
+				c3 = utftext.charCodeAt(i+2);
+				string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+				i += 3;
+			}
+ 
+		}
+ 
+		return string;
+	}
+ 
+}
+
+
 	function PriceController($scope, $http) { 
 
 		//$scope.delContact = Contact.delContact;
@@ -29,36 +93,89 @@
 	   	var cachePath = "offline/cache.dat";
 
 	   	getDatastore = function() {
+
 	   		var Datastore = require('nedb');
-  			db = new Datastore({ filename: cachePath });
+  			db = new Datastore({ 'filename': this.cachePath, 'autoload':true });
+  			db.loadDatabase(function (err) {    // Callback is optional
+  				if (err != null) {
+  					console.log('error when loadDatabase :: '+err);
+  				}
+			});
+  			console.log('datastore get');
   			return db;	
 	   	} 
 
-	   	saveCache = function(data) {
+	   	saveCacheNEDB = function(data) {
+	   		console.log('');
+	   		console.log('');
+	   		console.log('');
+	   		console.log('saving to cache');
+	   		console.log('##################');
+	   		testData = {'lastUpdate':data.lastUpdate};
+	   		testData = data;
+	   		testData = data.prices;
+
+var document = { hello: 'world'
+               , n: 5
+               , today: new Date()
+               , nedbIsAwesome: true
+               , notthere: null
+               , notToBeSaved: undefined  // Will not be saved
+               , fruits: [ 'apple', 'orange', 'pear' ]
+               , infos: { name: 'nedb' }
+               };
+
+	   		testData = document;
+	   		console.log(data);
+	   		console.log('##################');	
 	   		db = getDatastore();
-	   		db.insert(data, function (err, newDoc) {   // Callback is optional
-				console.log('ERROR while inseting ! '+err);
+	   		db.insert(testData, function (err, newDoc) {   // Callback is optional
+				if (err == null) {
+					console.log('INSERT done :: ');
+					//console.log(newDoc);
+				}
+				else {
+					console.log('ERROR while inserting ! '+err);
+				}
 			});
 	   	}
 
-	   	getCache = function() {
+	   	getFromCacheNEDB = function() {
 	   		db = getDatastore();
-	   		db.loadDatabase(function (err) {    // Callback is optional
- 				 // TODO :: load data;
- 				 db.find({}, function (err, docs) {
- 				 			console.log(docs);
- 				 		});	
-			});
+	   		
+			 db.find({}, function (err, docs) {
+				 		if (err == null) {
+				 			console.log('getting data from cache');
+				 			console.log(docs);				 			
+				 		}
+				 		else {
+				 		//	console.log('ERROR while loading ! '+err);
+				 		console.log('error loading');
+				 		}
+			 		});			
 	   	}
+
+		saveCacheLocal = function(data) {
+			localStorage.lastUpdate = data.lastUpdate;
+			localStorage.prices = Utf8.encode(JSON.stringify((data.prices)));
+		}
+
+		getFromCacheLocal = function () {
+			//console.log(localStorage.lastUpdate);
+			console.log(localStorage.prices);
+			prices = eval(localStorage.prices);
+			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
+		}
 
 		getAll = function () {
 
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
 				initData(data);
-				saveCache(data);
+				saveCacheLocal(data);
+				getFromCacheLocal();
 			}).error(function(data, status, headers, config) {
-    			cache = getCache();
-    			initData(cache);
+    			getFromCacheLocal();
+    			//initData(cache);
   			});
 			
 			$scope.getAll = getAll;
