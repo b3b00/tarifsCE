@@ -1,12 +1,15 @@
 {
-	"name": "Tarifs CE",
-	"main": "window.html",
-	"window": {
-		"icon": "images/ic_launcher.png",
-		"toolbar": false,
-	    "frame": false,
-	    "width": 800,
-	    "height": 600,
-	    "position": "mouse"
-	}
+  "name": "TarifsCE",
+  "main": "window.html",
+  "window": {
+    "icon": "images/ic_launcher.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 800,
+    "height": 600,
+    "position": "mouse"
+  },
+  "dependencies": {
+    "nedb": "~0.8.12"
+  }
 }

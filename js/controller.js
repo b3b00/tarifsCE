@@ -14,74 +14,55 @@
 		//$scope.delContact = Contact.delContact;
 		//Contact.getAll();
 	   
-
-
-		tsToDate = function(ts) {
-			 var a = new Date(ts*1000); 
-     var year = a.getFullYear();
-     var month = "00"+(a.getMonth()+1);     	 
-	 
-	 month = month.substring(month.length-2,month.length);    
-     var date = "00"+a.getDate();
-     date = date.substring(date.length-2,date.length);     
-     var hour = a.getHours();
-     var min = a.getMinutes();
-     var sec = a.getSeconds();
-     var time = date+'/'+month+'/'+year+' '+hour+':'+min+':'+sec ;
-     return time;
-		}
-
-
-		initData = function(data) {
+	   	initData = function(data) {
+	   		//console.log(data);
+			$scope.lastUpdate = data.lastUpdate;
 			$scope.prices = data.prices;    
-			$scope.lastUpdate = tsToDate(data.lastUpdate);
 			$scope.activeTab = new Array();
 			$scope.activeTab[0] = true;
 			for (i = 1; i < data.length; i++) {
 				$scope.activeTab[i] = false;
 			}
-		}	
+	   	}
+
+
+	   	var cachePath = "offline/cache.dat";
+
+	   	getDatastore = function() {
+	   		var Datastore = require('nedb');
+  			db = new Datastore({ filename: cachePath });
+  			return db;	
+	   	} 
+
+	   	saveCache = function(data) {
+	   		db = getDatastore();
+	   		db.insert(data, function (err, newDoc) {   // Callback is optional
+				console.log('ERROR while inseting ! '+err);
+			});
+	   	}
+
+	   	getCache = function() {
+	   		db = getDatastore();
+	   		db.loadDatabase(function (err) {    // Callback is optional
+ 				 // TODO :: load data;
+ 				 db.find({}, function (err, docs) {
+ 				 			console.log(docs);
+ 				 		});	
+			});
+	   	}
 
 		getAll = function () {
 
-
-
-
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
-				//console.log(data);
-				cache = localStorage.priceCache;
-				console.log("net OK");
-				
-				localStorage.priceCache = data;				
-				console.log(localStorage.priceCache.lastUpdate);
-				//console.log(data);
 				initData(data);
-				//localStorage.love = "luyao";
-
-
-console.log("from store :: "+localStorage.love);
-/*
-				$scope.prices = data.prices;    
-				$scope.lastUpdate = tsToDate(data.lastUpdate);
-				$scope.activeTab = new Array();
-				$scope.activeTab[0] = true;
-				for (i = 1; i < data.length; i++) {
-					$scope.activeTab[i] = false;
-				}
-				*/
+				saveCache(data);
 			}).error(function(data, status, headers, config) {
-				console.log("from store :: "+localStorage.love);
-				console.log('error on http GET '+status);
-				cache = localStorage.priceCache;
-				initData(cache);
-				console.log("cache is :: ");
-				console.log(cache.lastUpdate);
-			} );
-
+    			cache = getCache();
+    			initData(cache);
+  			});
+			
+			$scope.getAll = getAll;
 		}
-
-		$scope.getAll = getAll;
-
 
 		getAll();
 		
@@ -176,9 +157,4 @@ console.log("from store :: "+localStorage.love);
 
 	app.filter('quantityFilter', quantityFilterProvider);
 	
-	
-
-
-
-  
-})();  
+})();
