@@ -167,15 +167,28 @@ var document = { hello: 'world'
 			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
 		}
 
+		saveCacheFile = function(data) {
+			fs =require('fs');
+			fs.writeFileSync('offline/cache.dat', JSON.stringify(data) );
+		}
+
+		getFromCacheFile = function () {
+			fs = require('fs');
+			var data = fs.readFileSync('offline/cache.dat',{encoding:'UTF-8'});
+			return data;
+		}
+
+
+
 		getAll = function () {
 
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
 				initData(data);
-				saveCacheLocal(data);
-				getFromCacheLocal();
+				saveCacheFile(data);
+				
 			}).error(function(data, status, headers, config) {
-    			getFromCacheLocal();
-    			//initData(cache);
+    			cache = getFromCacheFile();
+    			initData(eval(cache));
   			});
 			
 			$scope.getAll = getAll;
