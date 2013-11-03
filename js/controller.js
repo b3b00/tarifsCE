@@ -169,7 +169,8 @@ var document = { hello: 'world'
 
 		saveCacheFile = function(data) {
 			fs =require('fs');
-			fs.writeFileSync('offline/cache.dat', JSON.stringify(data) );
+			content = myString = JSON.stringify(data).replace(/[\r\n]/g, "");
+			fs.writeFileSync('offline/cache.dat',  content);
 		}
 
 		getFromCacheFile = function () {
@@ -188,7 +189,9 @@ var document = { hello: 'world'
 				
 			}).error(function(data, status, headers, config) {
     			cache = getFromCacheFile();
-    			initData(eval(cache));
+    			cache = cache.replace(/[\n\r]/g,'');
+    			//console.log(cache);
+    			initData(eval('('+cache+')'));
   			});
 			
 			$scope.getAll = getAll;
@@ -248,7 +251,7 @@ var document = { hello: 'world'
 		
 		$scope.checkInteger = function(item) {	
 			qty = item.quantity+'';		
-			console.log('checking quantity ['+item.quantity+'] ');
+			//console.log('checking quantity ['+item.quantity+'] ');
 			
 			var intRegex = /^\d+$/;
 			if(!intRegex.test(item.quantity)) {
@@ -257,7 +260,7 @@ var document = { hello: 'world'
 				item.quantity = '';
 			}		
 			else {
-				console.log ('['+item.quantity+'] IS  an integer');
+				//console.log ('['+item.quantity+'] IS  an integer');
 				item.quantity = item.quantity;
 			}
 			
