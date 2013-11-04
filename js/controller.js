@@ -78,9 +78,31 @@ var Utf8 = {
 		//$scope.delContact = Contact.delContact;
 		//Contact.getAll();
 	   
+
+  tsToDate = function(ts) {
+        var a = new Date(ts*1000); 
+      var year = a.getFullYear();
+      var month = "00"+(a.getMonth()+1);        
+    
+    month = month.substring(month.length-2,month.length);    
+      var date = "00"+a.getDate();
+      date = date.substring(date.length-2,date.length);     
+      var hour = a.getHours();
+      var min = a.getMinutes();
+      var sec = a.getSeconds();
+      var time = date+'/'+month+'/'+year+' '+hour+':'+min+':'+sec ;
+      return time;
+    }
+
+
 	   	initData = function(data) {
 	   		//console.log(data);
-			$scope.lastUpdate = data.lastUpdate;
+
+			
+			// will display time in 10:30:23 format
+			//var formattedTime = tsToDate(date);
+
+			$scope.lastUpdate = tsToDate(data.lastUpdate);
 			$scope.prices = data.prices;    
 			$scope.activeTab = new Array();
 			$scope.activeTab[0] = true;
