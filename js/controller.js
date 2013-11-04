@@ -106,28 +106,10 @@ var Utf8 = {
 	   	} 
 
 	   	saveCacheNEDB = function(data) {
-	   		console.log('');
-	   		console.log('');
-	   		console.log('');
-	   		console.log('saving to cache');
-	   		console.log('##################');
-	   		testData = {'lastUpdate':data.lastUpdate};
+	   		
 	   		testData = data;
-	   		testData = data.prices;
-
-var document = { hello: 'world'
-               , n: 5
-               , today: new Date()
-               , nedbIsAwesome: true
-               , notthere: null
-               , notToBeSaved: undefined  // Will not be saved
-               , fruits: [ 'apple', 'orange', 'pear' ]
-               , infos: { name: 'nedb' }
-               };
-
-	   		testData = document;
-	   		console.log(data);
-	   		console.log('##################');	
+	   		
+	   		
 	   		db = getDatastore();
 	   		db.insert(testData, function (err, newDoc) {   // Callback is optional
 				if (err == null) {
@@ -168,12 +150,14 @@ var document = { hello: 'world'
 		}
 
 		saveCacheFile = function(data) {
+			console.log("saving to fs cache offline/cache.dat");
 			fs =require('fs');
 			content = myString = JSON.stringify(data).replace(/[\r\n]/g, "");
 			fs.writeFileSync('offline/cache.dat',  content);
 		}
 
 		getFromCacheFile = function () {
+			console.log("loading from fs cache offline/cache.dat");
 			fs = require('fs');
 			var data = fs.readFileSync('offline/cache.dat',{encoding:'UTF-8'});
 			return data;
@@ -277,12 +261,15 @@ var document = { hello: 'world'
 
 	function quantityFilterProvider() {
 		return function (item) {
+			console.log("quantityFilter in : "+item.length);
 			var filtered = new Array();
+
 			for (i = 0; i < item.length ;i++) {
 				if (item[i].quantity > 0) {
 					filtered.push(item[i]);
 				}
 			}
+			console.log("quantityFilter out : "+filtered.length);
 			return filtered;
 		}
 	}	

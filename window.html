@@ -167,7 +167,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 		</table>
 	</tab>	
 	<tab heading="Ma Commande : {{getTotal()}} €">		
-		<div  ng-show="total > 0 "	>
+		<div  ng-show="getTotal() > 0 "	>
 			<button  ng-click="clearCommand()"  
 							style="cursor:pointer; border:solid 1px darkgrey;" 
 							type="button">Tout supprimer</button>
