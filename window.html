@@ -147,14 +147,15 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
     <tab heading="{{categolabel}}" ng-repeat="(categolabel,items) in prices" active="activeTab[$index]">		
 		<table width='100%'>
 			<thead>
-			<tr><td>Item</td><td>Prix</td><td>Quantit&eacute;</td></tr>
+			<tr><td>{{categolabel}}</td><td>Prix</td><td>Quantit&eacute;</td></tr>
 			</thead>
 			<tbody>
-				<input ng-model="query" style='display:inline'>
+				<label for="query{{categolabel}}" style='display:inline'>Recherche :&nbsp;</label>
+				<input ng-model="query" style='display:inline' id="query{{categolabel}}">
 				<button  ng-click="query=''" 
 						style="background:white; cursor:pointer; border:solid 0px white;" 
 						type="button">
-							<img  onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" src="images/false.gif">
+							<img  onmouseover="this.style.cursor='pointer'" onmouseout="this.style.cursor='default'" src="images/false.gif" title='vider le champ'>
 			</tbody>
 			<tbody>				
 				<tr ng-repeat="(id,p) in items | filter:query" ng-class-odd="'odd'" ng-class-even="'even'" >						
