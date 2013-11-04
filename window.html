@@ -161,7 +161,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 				<tr ng-repeat="(id,p) in items | filter:query" ng-class-odd="'odd'" ng-class-even="'even'" >						
 					<td><p class='itemName'>{{p.label}}</p><p align='right' class='itemInfo'>{{p.info}}</p></td>
 					<!--<td >{{p.info}}</td>-->
-					<td >{{p.price}} €</td>
+					<td valign="middle" align="center">{{p.price}} €</td>
 					<td ><input type="text" ng-change="checkInteger(p)" style="width:30px" ng-model="p.quantity" ></input></td>
 				</tr>			
 			<tbody>
@@ -189,9 +189,9 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 					
 					<tr  ng-class-odd="'cmdrowodd'" ng-class-even="'cmdroweven'" ng-repeat="(id,p) in items | quantityFilter" > 						
 						<td><p class='itemName'>{{p.label}}</p><p align='right' class='itemInfo'>{{p.info}}</p></td>
-						<td>{{p.price}} €</td>
+						<td valign="middle" align="center">{{p.price}} €</td>
 						<td><input type="t" size="4" style="width:30px;text-align:center;" ng-change="checkInteger(p)"  ng-model="p.quantity"> </td>
-						<td>{{p.quantity * p.price}} € </td>										
+						<td valign="middle" align="center">{{p.quantity * p.price}} € </td>										
 						<td>
 							<button  ng-click="p.quantity=''" style="background:transparent; cursor:pointer; border:solid 0px ;" 
 							type="button">
