@@ -188,12 +188,14 @@ var Utf8 = {
 
 
 		getAll = function () {
-
-			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {
+			console.log("controller.getAll() - in");
+			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {	
+				console.log("controller.getAll - HTTP GET success ");
 				initData(data);
 				saveCacheFile(data);
 				
 			}).error(function(data, status, headers, config) {
+				console.log("controller.getAll - HTTP GET error :: "+status);
     			cache = getFromCacheFile();
     			cache = cache.replace(/[\n\r]/g,'');
     			//console.log(cache);
@@ -201,6 +203,7 @@ var Utf8 = {
   			});
 			
 			$scope.getAll = getAll;
+			console.log("controller.getAll() - out");
 		}
 
 		getAll();
@@ -283,7 +286,7 @@ var Utf8 = {
 
 	function quantityFilterProvider() {
 		return function (item) {
-			console.log("quantityFilter in : "+item.length);
+			//console.log("quantityFilter in : "+item.length);
 			var filtered = new Array();
 
 			for (i = 0; i < item.length ;i++) {
@@ -291,7 +294,7 @@ var Utf8 = {
 					filtered.push(item[i]);
 				}
 			}
-			console.log("quantityFilter out : "+filtered.length);
+			//console.log("quantityFilter out : "+filtered.length);
 			return filtered;
 		}
 	}	
