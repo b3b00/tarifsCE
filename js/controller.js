@@ -161,13 +161,14 @@ var Utf8 = {
 
 		saveCacheLocal = function(data) {
 			localStorage.lastUpdate = data.lastUpdate;
-			localStorage.prices = Utf8.encode(JSON.stringify((data.prices)));
+			content = myString = JSON.stringify(data).replace(/[\r\n]/g, "");
+			localStorage.prices = Utf8.encode(content);
 		}
 
 		getFromCacheLocal = function () {
 			//console.log(localStorage.lastUpdate);
-			console.log(localStorage.prices);
-			prices = eval(localStorage.prices);
+			//console.log(localStorage.prices);
+			prices = localStorage.prices;
 			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
 		}
 
@@ -192,12 +193,12 @@ var Utf8 = {
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {	
 				console.log("controller.getAll - HTTP GET success ");
 				initData(data);
-				saveCacheFile(data);
+				saveCacheLocal(data);
 				
 			}).error(function(data, status, headers, config) {
 				console.log("controller.getAll - HTTP GET error :: "+status);
-    			cache = getFromCacheFile();
-    			cache = cache.replace(/[\n\r]/g,'');
+    			cache = getFromCacheLocal();
+    			cache = cache.prices.replace(/[\n\r]/g,"");
     			//console.log(cache);
     			initData(eval('('+cache+')'));
   			});
