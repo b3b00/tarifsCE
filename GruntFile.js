@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         linux32: false, // We don't need linux32
         linux64: false // We don't need linux64
     },
-    src: ['./*'] // Your node-wekit app
+    src: ['./**/*'] // Your node-wekit app
   },
 })
 
