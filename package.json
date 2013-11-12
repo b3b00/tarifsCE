@@ -1,5 +1,6 @@
 {
   "name": "TarifsCE",
+  "version" : 1.0,
   "main": "window.html",
   "window": {
     "icon": "images/ic_launcher.png",
