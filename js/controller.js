@@ -127,7 +127,7 @@ var Utf8 = {
   			return db;	
 	   	} 
 
-	   	saveCacheNEDB = function(data) {
+	  /* 	saveCacheNEDB = function(data) {
 	   		
 	   		testData = data;
 	   		
@@ -157,7 +157,7 @@ var Utf8 = {
 				 		console.log('error loading');
 				 		}
 			 		});			
-	   	}
+	   	} */
 
 		saveCacheLocal = function(data) {
 			localStorage.lastUpdate = data.lastUpdate;
@@ -172,7 +172,7 @@ var Utf8 = {
 			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
 		}
 
-		saveCacheFile = function(data) {
+	/*	saveCacheFile = function(data) {
 			console.log("saving to fs cache offline/cache.dat");
 			fs =require('fs');
 			content = myString = JSON.stringify(data).replace(/[\r\n]/g, "");
@@ -184,7 +184,7 @@ var Utf8 = {
 			fs = require('fs');
 			var data = fs.readFileSync('offline/cache.dat',{encoding:'UTF-8'});
 			return data;
-		}
+		} */
 
 
 
