@@ -21,11 +21,11 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 	<script src="js/controller.js"></script>
 	
 	<style>
-		table tr.odd td { background : #84203a;
+		table tr.odd td { background : #EA546E;/*#84203a;*/
 			color:white;
 /*		#e11836;*/
 		border: 1.5px solid white;}
-		table tr.even td { background : lightgrey; border: 1.5px solid white;} 
+		table tr.even td { background : white; border: 1.5px solid white;} 
 		table thead tr td {text-align:center; font-size:medium; background:#999; color:white;border: 1.5px solid white;}
 		
 		table tr.cmdrowodd  td {
@@ -144,6 +144,9 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 <br>
   <div style="width:100%;overflow:auto	">
   <tabset>
+    
+    <!-- categories --> 
+
     <tab heading="{{categolabel}}" ng-repeat="(categolabel,items) in prices" active="activeTab[$index]">		
 		<table width='100%'>
 			<thead>
@@ -159,7 +162,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 			</tbody>
 			<tbody>				
 				<tr ng-repeat="(id,p) in items | filter:query" ng-class-odd="'odd'" ng-class-even="'even'" >						
-					<td><p class='itemName'>{{p.label}}</p><p align='right' class='itemInfo'>{{p.info}}</p></td>
+					<td><table width='100%'><tr><td style='border:none'><span class='itemName'>{{p.label}}</span></td><td style='border:none'><span align='right' class='itemInfo'>{{p.info}}</span></td></tr></table></td>
 					<!--<td >{{p.info}}</td>-->
 					<td valign="middle" align="center">{{p.price}} €</td>
 					<td ><input type="text" ng-change="checkInteger(p)" style="width:30px" ng-model="p.quantity" ></input></td>
@@ -167,6 +170,10 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 			<tbody>
 		</table>
 	</tab>	
+
+
+	<!-- commande -->
+
 	<tab heading="Ma Commande : {{getTotal()}} €">		
 		<div  ng-show="getTotal() > 0 "	>
 			<button  ng-click="clearCommand()"  
