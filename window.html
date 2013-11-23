@@ -21,17 +21,17 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 	<script src="js/controller.js"></script>
 	
 	<style>
-		table tr.odd td { background : #EA546E;/*#84203a;*/
-			color:white;
+		table tr.odd td { background :  #b8d1f3; /*CadetBlue ;/*#EA546E; *//*#84203a;*/
+			color:DarkSlateGray ;
 /*		#e11836;*/
 		border: 1.5px solid white;}
-		table tr.even td { background : white; border: 1.5px solid white;} 
+		table tr.even td { background : #dae5f4; border: 1.5px solid white;} 
 		table thead tr td {text-align:center; font-size:medium; background:#999; color:white;border: 1.5px solid white;}
 		
 		table tr.cmdrowodd  td {
 			text-align:center;			
 			border-right : 1.5px solid #867970;
-			background-color : #D4CCC5;
+			background-color : #b8d1f3; /* #D4CCC5;
 			/*border-left : 1.5px solid darkgrey;*/
 			/*border-bottom:1.5px dashed darkgrey;*/
 			/*border-top:1.5px dashed darkgrey;*/
@@ -40,7 +40,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 		table tr.cmdroweven  td {
 			text-align:center;			
 			border-right : 1.5px solid #D4CCC5;
-			background-color : #867970;
+			background-color : #dae5f4; /*#867970;
 			/*border-left : 1.5px solid darkgrey;*/
 			/*border-bottom:1.5px dashed darkgrey;*/
 			/*border-top:1.5px dashed darkgrey;*/
@@ -71,7 +71,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 		.itemName {			
 			font-weight : bold;
 			font-size : medium;
-			display:block;
+			display:inline;
 		}
 		.itemInfo {
 			text-align = left;
@@ -162,10 +162,10 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 			</tbody>
 			<tbody>				
 				<tr ng-repeat="(id,p) in items | filter:query" ng-class-odd="'odd'" ng-class-even="'even'" >						
-					<td><table width='100%'><tr><td style='border:none'><span class='itemName'>{{p.label}}</span></td><td style='border:none'><span align='right' class='itemInfo'>{{p.info}}</span></td></tr></table></td>
+					<td><table width='100%'><tr><td width='50%' style='border:none'><span class='itemName'>{{p.label}}</span></td><td style='border:none'><span align='right' width='50%' class='itemInfo'>{{p.info}}</span></td></tr></table></td>
 					<!--<td >{{p.info}}</td>-->
 					<td valign="middle" align="center">{{p.price}} €</td>
-					<td ><input type="text" ng-change="checkInteger(p)" style="width:30px" ng-model="p.quantity" ></input></td>
+					<td valign="middle" align="center"><input type="text" ng-change="checkInteger(p)" style="width:30px" ng-model="p.quantity" ></input></td>
 				</tr>			
 			<tbody>
 		</table>
