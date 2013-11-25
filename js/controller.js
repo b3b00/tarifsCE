@@ -161,14 +161,16 @@ var Utf8 = {
 
 		saveCacheLocal = function(data) {
 			localStorage.lastUpdate = data.lastUpdate;
-			content = myString = JSON.stringify(data).replace(/[\r\n]/g, "");
+			content =  JSON.stringify(data).replace(/[\r\n]/g, "");
 			localStorage.prices = Utf8.encode(content);
+			localStorage.prices = content;
 		}
 
 		getFromCacheLocal = function () {
 			//console.log(localStorage.lastUpdate);
-			//console.log(localStorage.prices);
-			prices = localStorage.prices;
+			console.log(localStorage.prices);
+			prices = localStorage.priceCache;
+
 			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
 		}
 
