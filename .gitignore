@@ -1,4 +1,4 @@
 *.exe 
 nw.pak
 *.nw
-webkitbuilds/*
+webkit-build/*

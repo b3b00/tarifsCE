@@ -200,7 +200,10 @@ var Utf8 = {
 		getAll = function () {
 			console.log("controller.getAll() - in");
 			$scope.lineMode='online';
-			var isInitialized = false;
+			
+			// initialisation depuis le cache par defaut. surchager par le online s'il faut plus tard (a cause d'un pb avec le VPN ....)
+			initFromCache();
+
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {	
 				console.log("controller.getAll - HTTP GET success ");
 				initData(data);
@@ -213,9 +216,7 @@ var Utf8 = {
     			isInitialized = true;
   			});
 			
-			if (!isInitialized){
-				initFromCache();
-			}
+			
 
 			$scope.getAll = getAll;
 			console.log("controller.getAll() - out");
