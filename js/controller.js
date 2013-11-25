@@ -187,22 +187,36 @@ var Utf8 = {
 		} */
 
 
+		initFromCache = function() {
+			console.log("initFromCache()");
+			cache = getFromCacheLocal();
+			cache = cache.prices.replace(/[\n\r]/g,"");
+			//console.log(cache);
+			initData(eval('('+cache+')'));
+			$scope.lineMode='offline';
+		}
+
 
 		getAll = function () {
 			console.log("controller.getAll() - in");
+			$scope.lineMode='online';
+			var isInitialized = false;
 			$http.get('http://ce-cgi-nord.fr/prices.json.php').success(function (data) {	
 				console.log("controller.getAll - HTTP GET success ");
 				initData(data);
 				saveCacheLocal(data);
-				
+				$scope.lineMode='online';				
+				isInitialized = true;
 			}).error(function(data, status, headers, config) {
 				console.log("controller.getAll - HTTP GET error :: "+status);
-    			cache = getFromCacheLocal();
-    			cache = cache.prices.replace(/[\n\r]/g,"");
-    			//console.log(cache);
-    			initData(eval('('+cache+')'));
+    			initFromCache();
+    			isInitialized = true;
   			});
 			
+			if (!isInitialized){
+				initFromCache();
+			}
+
 			$scope.getAll = getAll;
 			console.log("controller.getAll() - out");
 		}
