@@ -217,8 +217,8 @@ function downloadBuild {
 	fi
 	echo "downloading $DL"
 
-
-	axel   $DL -o node-webkit-v$VERSION-$OS-$ARCHI$EXT
+	curl -x $http_proxy -o node-webkit-v$VERSION-$OS-$ARCHI$EXT $DL 
+	#axel   $DL -o node-webkit-v$VERSION-$OS-$ARCHI$EXT
 	echo "moving node-webkit-v$VERSION-$OS-$ARCHI$EXT to ./webkit-build/cache/$VERSION/$OS/$ARCHI;"
 	mv  node-webkit-v$VERSION-$OS-$ARCHI$EXT ./webkit-build/cache/$VERSION/$OS/$ARCHI;
 
