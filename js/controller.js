@@ -192,10 +192,13 @@ var Utf8 = {
 		initFromCache = function() {
 			console.log("initFromCache()");
 			cache = getFromCacheLocal();
-			cache = cache.prices.replace(/[\n\r]/g,"");
-			//console.log(cache);
-			initData(eval('('+cache+')'));
+			if (cache.prices != null) {
+			console.log(cache);
+			cacherices = cache.prices.replace(/[\n\r]/g,"");
+			console.log(cacheprices);
+			initData(eval('('+cacheprices+')'));
 			$scope.lineMode='offline';
+			}
 		}
 
 
