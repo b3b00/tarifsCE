@@ -167,9 +167,8 @@ var Utf8 = {
 		}
 
 		getFromCacheLocal = function () {
-			//console.log(localStorage.lastUpdate);
-			console.log(localStorage.prices);
-			prices = localStorage.priceCache;
+			
+			prices = localStorage.prices;
 
 			return {'lastUpdate':localStorage.lastUpdate,'prices':prices};	
 		}
@@ -190,14 +189,18 @@ var Utf8 = {
 
 
 		initFromCache = function() {
-			console.log("initFromCache()");
+			//console.log("initFromCache()");
 			cache = getFromCacheLocal();
 			if (cache.prices != null) {
-			console.log(cache);
-			cacherices = cache.prices.replace(/[\n\r]/g,"");
-			console.log(cacheprices);
-			initData(eval('('+cacheprices+')'));
-			$scope.lineMode='offline';
+				
+				cacheprices = cache.prices.replace(/[\n\r]/g,"");
+				
+
+				initData(eval('('+cacheprices+')'));
+				$scope.lineMode='offline';
+			}
+			else {
+				console.log('no data found in localStorage');
 			}
 		}
 
@@ -220,7 +223,7 @@ var Utf8 = {
     			initFromCache();
     			isInitialized = true;
   			});
-			
+				
 			
 
 			$scope.getAll = getAll;
