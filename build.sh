@@ -224,6 +224,28 @@ function downloadBuild {
 
 }
 
+function build_usage {
+	echo "$0 <node-webkit version> <architecture> <OS>"
+	echo "     - <node-webkit version> : version of node-webkit. 0.8.1 for example"
+	echo "     - <architecture> : ia32 or x64 (x64 only available for linux)"
+	echo "     - <OS> : the OS, win, osx or linux"
+}
+
+
+
+if [ $# != 3 ]
+then	
+	build_usage $0;
+	exit 1;
+fi
+
+export VERSION=$1
+
+export ARCHI=$2
+
+export OS=$3
+
+
 
 clean
 
