@@ -1,6 +1,6 @@
 {
   "name": "TarifsCE",
-  "version" : 1.0,
+  "version" : "1.0",
   "main": "window.html",
   "window": {
     "icon": "images/ic_launcher.png",
@@ -10,11 +10,8 @@
     "height": 600,
     "position": "mouse"
   },
-  "dependencies": {
-    "nedb": "~0.8.12"
+  "dependencies": {    
   },
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-node-webkit-builder": "~0.1.11"
+  "devDependencies": {    
   }
 }
