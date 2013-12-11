@@ -186,7 +186,7 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 							type="button">Tout supprimer</button>
 							<br/>
 							<br/>
-			<table width='50%'>
+			<table width='100%'>
 				<tbody>
 					<tr ng-class="'cmdhead'">	
 						<td >Nom</td>
@@ -215,13 +215,24 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 					<tr><td colspan='5'>&nbsp;</td></tr>
 					<tr ><td colspan="5" style="text-align:right;font-weight:bold;font-size:16px" >Total : {{getTotal() | number}} €</td><td></td><tr>
 				</tbody>
+				<tbody>
+					<tr><td colspan="2">nom du client :</td><td colspan="2">permanent :</td><td>&nbsp;</td></tr>
+					<tr><td colspan="2"><input type="text" ng-model="clientName"></td><td colspan="2"><input type="text" ng-model="permanent"/></td><td>&nbsp;</td></tr>					
+					<tr><td colspan="4"><button ng-click="registerOrder()">Enregistrer la commande</button></td><td>&nbsp;</td></tr>
+				</tbody>
 			</table>
 		</div>	
 	</tab>
 
+<!-- historique -->
 
 	    <tab heading="historique">	
 	    	
+
+
+	    	<input type='text' placeholder='filtre nom' style='display:inline'/> <label for='ordered' style='display:inline'>commandés : </label><input style='display:inline'  id='ordered' type='checkbox'/>
+	    	<hr/>
+	    	<hr/>	  
 	    	<table class="histo">
 		    	<tr><td style="right-margin:32px">client</td><td>permanent</td></tr>
 		    	<tr><td>albert Dupont</td><td>ODU</td></tr>

@@ -224,7 +224,7 @@ var Utf8 = {
     			isInitialized = true;
   			});
 				
-			
+			$scope.historic = new Array();	
 
 			$scope.getAll = getAll;
 			console.log("controller.getAll() - out");
@@ -256,7 +256,7 @@ var Utf8 = {
 				items = $scope.prices[catego]
 				for (i = 0; i < items.length ;i++) {
 					if (items[i].quantity > 0) {		
-						command.push(item[i])
+						command.push(items[i])
 					}
 				}
 			}
@@ -301,7 +301,78 @@ var Utf8 = {
 				item.quantity = '';
 			}		
 		}
+
+
+// --------------------------------------------------------------
+//
+// gestions des commandes
+//
+// --------------------------------------------------------------
+
+	isEmpty = function(str) {
+		return str == null || str.length == 0;
 	}
+
+
+	createNewOrder = function () {
+
+		command = $scope.getCommand();
+		var items = new Array();
+		console.log('command : ',command);
+		for (var n = 0; n < command.length; n++) { 
+			line = command[i];
+			if (line != null) {
+				console.log("line",line);
+				itemline = {
+					'item' : line.label+ ' - '+line.info,
+					'pu' : line.price,
+					'quantity' : line.quantity,
+					'total' : line.quantity * line.price
+				};
+				items.push(itemline);
+			}
+		}
+
+		item = {
+			'permanent' : $scope.permanent,
+			'client' : $scope.clientName,
+			'items' : items
+		}
+		return item;
+	}
+
+	$scope.registerOrder = function() {
+		if (isEmpty($scope.clientName)) {
+			alert('le nom du client doit être renseigné');
+			return;
+		} 
+		if (isEmpty($scope.permanent)) {
+			alert('le trigramme du permanent doit être renseigné');
+			return;
+		} 
+
+		item = createNewOrder();
+
+		console.log("new histo line : ",item);	
+		
+		if ($scope.historic == null || $scope.historic.constructor !== Array) {
+			$scope.historic = new Array();
+		}
+		$scope.historic.push(item);
+
+		console.log($scope.historic)
+	}
+
+// --------------------------------------------------------------
+//
+// FIN gestions des commandes
+//
+// --------------------------------------------------------------
+
+
+	}
+
+
 
 	
 	/*
