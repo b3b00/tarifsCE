@@ -320,8 +320,8 @@ var Utf8 = {
 		var items = new Array();
 		console.log('command : ',command);
 		for (var n = 0; n < command.length; n++) { 
-			line = command[i];
-			if (line != null) {
+			line = command[n];
+			if (line != null && line != undefined) {
 				console.log("line",line);
 				itemline = {
 					'item' : line.label+ ' - '+line.info,

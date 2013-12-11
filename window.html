@@ -231,36 +231,22 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 
 
 	    	<input type='text' placeholder='filtre nom' style='display:inline'/> <label for='ordered' style='display:inline'>commandés : </label><input style='display:inline'  id='ordered' type='checkbox'/>
-	    	<hr/>
-	    	<hr/>	  
+	    
+
+	    	<div ng-repeat="item in historic">
 	    	<table class="histo">
 		    	<tr><td style="right-margin:32px">client</td><td>permanent</td></tr>
-		    	<tr><td>albert Dupont</td><td>ODU</td></tr>
+		    	<tr><td>{{item.client}}</td><td>{{item.permanent}}</td></tr>
 	    	<table class="histo">
-
+	    		<tbody>
 	    		<tr><td>item</td><td>PU</td><td>quantité</td><td>total</td></tr>
-	    		<tr><td>kinépolis lomme</td><td>5.5</td><td>10</td><td>55</td></tr>
-	    		<tr><td>kinépolis lomme</td><td>5.5</td><td>10</td><td>55</td></tr>
-	    		<tr><td>kinépolis lomme</td><td></td><td></td><td>110</td></tr>
-	    	</table>
-	    	<table class="histo">
-
-	    		<tr><td>date de commande</td><td>date d'appel apace</td><td>date reception pr&eacute;vue</td>
-	    			<td>date de reception</td></td><td>date de livraison</td></tr>
-	    		<tr><td>10/12/2013</td><td>10/12/2013</td><td>10/12/2013</td>
-	    			<td>10/12/2013</td><td>10/12/2013</td></tr>
-	    	</table>
-	    	<hr/>
-	    	<hr/>	    
-	    	<table class="histo">
-		    	<tr><td style="right-margin:32px">client</td><td>permanent</td></tr>
-		    	<tr><td>albert Dupont</td><td>ODU</td></tr>
-	    	<table class="histo">
-
-	    		<tr><td>item</td><td>PU</td><td>quantité</td><td>total</td></tr>
-	    		<tr><td>kinépolis lomme</td><td>5.5</td><td>10</td><td>55</td></tr>
-	    		<tr><td>kinépolis lomme</td><td>5.5</td><td>10</td><td>55</td></tr>
-	    		<tr><td>kinépolis lomme</td><td></td><td></td><td>110</td></tr>
+	    		</tbody>
+	    		<tbody ng-repeat="line in item.items">
+		    		<tr><td>{{line.item}}</td><td>{{line.pu}}&nbsp;&euro;</td><td>{{line.quantity}}</td><td>{{line.total}}&nbsp;&euro;</td></tr>		    		
+	    		</tbody>
+	    		<tbody>
+	    		<tr><td colspan="3">total</td><td>123456&nbsp;&euro;</td></tr>
+	    		</tbody>
 	    	</table>
 	    	<table class="histo">
 	    		<tr><td>date de commande</td><td>date d'appel apace</td><td>date reception pr&eacute;vue</td>
@@ -270,6 +256,8 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 	    	</table>
 	    	<hr/>
 	    	<hr/>	
+	    </div>
+
 	    </tab>
   </tabset>
   <br/>
