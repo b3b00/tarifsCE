@@ -15,7 +15,7 @@ Name "Example1"
 OutFile "example1.exe"
 
 ; The default installation directory
-InstallDir $PROGRAMFILES\Example1
+InstallDir c:\Tarifs
 
 ; The text to prompt the user to enter a directory
 DirText "This will install My Cool Program on your computer. Choose a directory"
@@ -30,6 +30,14 @@ SetOutPath $INSTDIR
 
 ; Put file there
 File webkit-build\releases\win\ia32\*
+
+; Uninstaller - See function un.onInit and section "uninstall" for configuration
+writeUninstaller "$INSTDIR\uninstall.exe"
+
+CreateDirectory "$INSTDIR\data"
+CreateDirectory "$SMPROGRAMS\CE-CGI-NORD"
+CreateShortCut "$SMPROGRAMS\CE-CGI-NORD\tarifs.lnk" "$INSTDIR\tarifsCE.exe" \
+  " --data-path=$INSTDIR "  "$INSTDIR\appicon.ico,0" SW_SHOWNORMAL  "Tarifs billeterie CE"
 
 SectionEnd ; end the section
 

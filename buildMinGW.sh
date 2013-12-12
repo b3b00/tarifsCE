@@ -82,7 +82,8 @@ function build {
 	echo 
 	echo "nw folder ::  $NW_FOLDER";
 	echo
-
+	pwd
+	cp ../../images/appicon.ico .
 	case "$OS" in 
     linux)
 		echo "buildLinux $NW_FOLDER $ARCHI $prjName";
@@ -98,6 +99,7 @@ function build {
      	echo "error : unknwon OS : $OS";
      	exit 42;
      esac   
+
 
 	# TODO : create ../releas/$OS/$ARCHI
 	#   in folder : 
@@ -132,7 +134,7 @@ function buildOsX {
 	cp $NW_FOLDER/nw.pak $OUT
 	cp $NW_FOLDER/*.so $OUT
 	cat $NW_FOLDER/nw ../$PRJ.nw > $OUT/$PRJ && chmod +x $OUT/$PRJ 
-	
+	cp appicon.ico $OUT
 }
 
 function buildWin {
@@ -147,6 +149,7 @@ function buildWin {
 	cp $NW_FOLDER/nw.pak $OUT
 	cp $NW_FOLDER/*.dll $OUT
 	cat $NW_FOLDER/nw.exe $PRJ.nw > $OUT/$PRJ.exe && chmod +x $OUT/$PRJ.exe 
+	cp appicon.ico $OUT
 }
 
 function downloadIfNecessary {
