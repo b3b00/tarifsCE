@@ -22,7 +22,7 @@ function clean {
 
 function mkNW {	
 
-	FILES=`ls | grep -v webkit-build | sed -e ':a;N;$!ba;s/\n/ /g'`
+	FILES=`ls | grep -v webkit-build | grep -v exe | grep -v zip | grep -v sh | sed -e ':a;N;$!ba;s/\n/ /g'`
 	
 	echo "***"
 	echo $FILES

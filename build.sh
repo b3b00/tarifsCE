@@ -25,7 +25,7 @@ function clean {
 
 function mkNW {	
 
-	FILES=`ls | grep -v webkit-build`
+	FILES=`ls | grep -v webkit-build | grep -v exe | grep -v zip | grep -v sh | sed -e ':a;N;$!ba;s/\n/ /g'`
 	
 	prjName=$1;
 	echo "*** making project archive $prjName in $PWD"; 
