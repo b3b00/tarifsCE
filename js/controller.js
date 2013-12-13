@@ -336,6 +336,7 @@ var Utf8 = {
 		item = {
 			'permanent' : $scope.permanent,
 			'client' : $scope.clientName,
+			'comment' : $scope.orderComment,
 			'items' : items
 		}
 		return item;
