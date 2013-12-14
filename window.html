@@ -219,7 +219,16 @@ global.localStorage = (_ref = global.localStorage) != null ? _ref : window.local
 					<tr><td colspan="2">nom du client :</td><td colspan="2">permanent :</td><td>&nbsp;</td></tr>
 					<tr><td colspan="2"><input type="text" ng-model="clientName"></td><td colspan="2"><input type="text" ng-model="permanent"/></td><td>&nbsp;</td></tr>					
 					<tr><td></td><td colspan="3"><textarea ng-model="orderComment"></textarea></td></tr>
-					<tr><td colspan="4"><button ng-click="registerOrder()">Enregistrer la commande</button></td><td>&nbsp;</td></tr>
+					<tr><td colspan="4" align="center"><!-- <button ng-click="registerOrder()">Enregistrer la commande</button> -->
+<div><!--[if mso]>
+  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:36px;v-text-anchor:middle;width:200px;" arcsize="50%" strokecolor="#e6e6e8" fillcolor="#fafafb">
+    <w:anchorlock/>
+    <center style="color:#2f353e;font-family:sans-serif;font-size:13px;font-weight:bold;">this is a button</center>
+  </v:roundrect>
+<![endif]--><a href="#" ng-click="registerOrder()"
+style="background-color:#fafafb;border:1px solid #e6e6e8;border-radius:18px;color:#2f353e;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:36px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;mso-hide:all;">Enregistrer la commande</a></div>
+
+					</td><td>&nbsp;</td></tr>
 				</tbody>
 			</table>
 		</div>	

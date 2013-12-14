@@ -6,8 +6,8 @@
     "icon": "images/ic_launcher.png",
     "toolbar": false,
     "frame": false,
-    "width": 800,
-    "height": 600,
+    "width": 1024,
+    "height": 650,
     "position": "mouse"
   },
   "dependencies": {    
